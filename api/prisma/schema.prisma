@@ -7,3 +7,87 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int                @id @default(autoincrement())
+  email     String             @unique
+  sessions  EvolutionSession[]
+  contacts  Contact[]
+  campaigns Campaign[]
+}
+
+model EvolutionSession {
+  id        Int   @id @default(autoincrement())
+  userId    Int
+  sessionId String @unique  // instanceName
+  status    String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Contact {
+  id         Int    @id @default(autoincrement())
+  userId     Int
+  phone_e164 String @unique
+  meta       Json
+
+  user       User               @relation(fields: [userId], references: [id])
+  recipients CampaignRecipient[]
+
+  @@index([userId])
+}
+
+model Campaign {
+  id               Int      @id @default(autoincrement())
+  userId           Int
+  name             String
+  message_template String
+  start_at         DateTime
+  interval_sec     Int
+  status           String
+
+  // Media de campaña (opcional)
+  media_type     String?
+  media_url      String?
+  media_caption  String?
+  media_filename String?
+
+  user       User               @relation(fields: [userId], references: [id])
+  recipients CampaignRecipient[]
+
+  @@index([userId])
+}
+
+model CampaignRecipient {
+  id           Int      @id @default(autoincrement())
+  campaignId   Int
+  contactId    Int
+  variables    Json
+  scheduled_at DateTime
+  status       String
+  attempts     Int      @default(0)
+  last_error   String?
+
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+  contact  Contact  @relation(fields: [contactId], references: [id])
+  logs     MessageLog[]
+
+  @@index([campaignId])
+  @@index([contactId])
+  @@index([scheduled_at])
+}
+
+model MessageLog {
+  id                  Int      @id @default(autoincrement())
+  campaignRecipientId Int
+  wa_message_id       String?
+  status              String
+  raw_response        Json?
+  created_at          DateTime @default(now())
+
+  recipient CampaignRecipient @relation(fields: [campaignRecipientId], references: [id])
+
+  @@index([campaignRecipientId])
+}
