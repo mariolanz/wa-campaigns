@@ -1,6 +1,8 @@
 import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ContactsService } from './contacts.service';
+import type { Express } from 'express';  // <─ agrega esto
+
 
 @Controller('contacts')
 export class ContactsController {

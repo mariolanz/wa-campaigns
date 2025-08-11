@@ -2,6 +2,8 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../common/prisma.service';
 import { parse } from 'csv-parse/sync';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import type { Express } from 'express';  // <─ agrega esto
+
 
 @Injectable()
 export class ContactsService {
