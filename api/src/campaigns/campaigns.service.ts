@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../common/prisma.service';
 import { CreateCampaignDto } from './dto/create-campaign.dto';
-import { InjectQueue } from 'bullmq';
+import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 
 @Injectable()
