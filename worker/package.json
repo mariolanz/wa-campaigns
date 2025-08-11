@@ -1,11 +1,12 @@
 {
   "name": "wa-worker",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "private": true,
   "scripts": {
     "start": "ts-node src/main.ts",
     "start:prod": "node dist/main.js",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@nestjs/common": "10.3.8",
@@ -18,6 +19,7 @@
     "axios": "1.6.8"
   },
   "devDependencies": {
+    "@types/node": "20.11.30",
     "typescript": "5.4.5",
     "ts-node": "10.9.2"
   }

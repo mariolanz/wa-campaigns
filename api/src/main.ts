@@ -10,7 +10,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('WA API')
     .setDescription('Campaigns API')
-    .setVersion('0.2.0')
+    .setVersion('0.2.2')
     .build();
   const doc = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, doc);

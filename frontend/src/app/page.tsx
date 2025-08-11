@@ -79,7 +79,7 @@ export default function Home() {
             <img src={sessionQR} alt="QR" style={{width:240,height:240}} />
           </div>
         )}
-        <p className="small">Usa la instancia por defecto <b>octocom</b> si no necesitas múltiples sesiones.</p>
+        <p className="small">Usa la instancia por defecto <b>octocom</b>.</p>
       </section>
 
       <section style={{marginTop:20}}>

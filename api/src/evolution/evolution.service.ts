@@ -12,7 +12,6 @@ export class EvolutionService {
     return { 'Content-Type': 'application/json', apikey: this.apiKey };
   }
 
-  // Crea instancia y devuelve QR + nombre
   async createInstance(instanceName: string) {
     const url = `${this.base}/instance/create`;
     const { data } = await axios.post(url, {

@@ -15,7 +15,6 @@ export class SendWhatsappProcessor extends WorkerHost {
     });
     if (!cr) return;
 
-    // Respetar el horario programado (safety)
     if (cr.scheduled_at.getTime() > Date.now()) {
       const delay = cr.scheduled_at.getTime() - Date.now();
       await job.updateData(job.data);
@@ -27,7 +26,6 @@ export class SendWhatsappProcessor extends WorkerHost {
     const vars = (cr.variables || {}) as Record<string, string>;
     const text = tpl.replace(/\{\{(.*?)\}\}/g, (_, k) => (vars[k.trim()] ?? ''));
 
-    // Recupera instancia conectada del usuario (sessionId = instanceName)
     const session = await this.prisma.evolutionSession.findFirst({
       where: { userId: cr.campaign.userId, status: 'connected' },
     });
